@@ -3,7 +3,6 @@ const app = express()
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const morgan = require('morgan')
 const bodyParser = require('body-parser');
 
 
@@ -20,7 +19,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 app.use(express.json())
-//app.use(morgan("dev"));
 
 
 app.use("/api/users", require("./backend/routes/user"));
@@ -29,13 +27,6 @@ app.use("/api/invitations", require("./backend/routes/invitation"));
 app.use("/api/notifications", require("./backend/routes/notification"));
 app.use("/api/conversations", require("./backend/routes/conversation"));
 app.use("/api/messages", require("./backend/routes/message"));
-
-
-//deploy
-app.use(express.static('frontend/build'));
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-});
 
 
 const server = app.listen(process.env.PORT || 5000, () => {
